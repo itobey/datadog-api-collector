@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Singleton;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -19,19 +20,18 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Singleton
 public class MetricsGatherer {
 
     private final DatadogAdapter datadogAdapter;
     private final MetricCalculator metricCalculator;
+    private final ConfigProperties props;
 
     public static final String SYSTEM_CPU_IDLE_BY_HOST = "system.cpu.idle{*}by{host}";
     public static final String SYSTEM_MEM_USABLE_BY_HOST = "system.mem.usable{*}by{host}";
     public static final String SYSTEM_UPTIME_BY_HOST = "system.uptime{*}by{host}";
 
     public static final int MAX_CPU = 100;
-    public static final int MAX_RAM_NUC_MB = 15597;
-    public static final int MAX_RAM_ITOBEY_MB = 7772;
-    public static final int MAX_RAM_ODROID_MB = 3712;
 
     /**
      * Gather all necessary metrics.
@@ -40,8 +40,7 @@ public class MetricsGatherer {
      */
     public List<Metrics> gatherMetrics() {
 
-        //TODO property of timeframe
-        long unix_time_from = LocalTime.now().minusMinutes(30L).toEpochSecond(LocalDate.now(), ZoneOffset.ofHours(2));
+        long unix_time_from = LocalTime.now().minusMinutes(props.getSearchWindow()).toEpochSecond(LocalDate.now(), ZoneOffset.ofHours(2));
         long unix_time_to = LocalTime.now().toEpochSecond(LocalDate.now(), ZoneOffset.ofHours(2));
 
         MetricsQueryResponse responseQueryCPU = datadogAdapter.queryMetrics(
@@ -53,9 +52,9 @@ public class MetricsGatherer {
         MetricsQueryResponse responseQueryRAM = datadogAdapter.queryMetrics(
                 SYSTEM_MEM_USABLE_BY_HOST, unix_time_from, unix_time_to);
 
-        int ramNuc = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC), MAX_RAM_NUC_MB);
-        int ramItobey = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ITOBEY), MAX_RAM_ITOBEY_MB);
-        int ramOdroid = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ODROID), MAX_RAM_ODROID_MB);
+        int ramNuc = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC), props.getNucMaxRam());
+        int ramItobey = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ITOBEY), props.getItobeyMaxRam());
+        int ramOdroid = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ODROID), props.getOdroidMaxRam());
 
         MetricsQueryResponse responseQueryUptime = datadogAdapter.queryMetrics(
                 SYSTEM_UPTIME_BY_HOST, unix_time_from, unix_time_to);

@@ -1,0 +1,18 @@
+micronaut:
+  application:
+    name: datadogApiCollector
+
+logging:
+  level:
+    root: INFO
+
+datadog-api-gatherer:
+  nuc-max-ram: 15597
+  itobey-max-ram: 7772
+  odroid-max-ram: 3712
+  search-window: 10
+  influxdb:
+    server: http://influxdb.influxdb:8086
+    user: ---
+    password: ---
+    database: datadog_metrics

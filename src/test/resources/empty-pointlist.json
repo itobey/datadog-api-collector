@@ -1,0 +1,26 @@
+{
+  "status": "ok",
+  "series": [
+    {
+      "end": 1623853034000,
+      "metric": "system.cpu.idle",
+      "interval": 1,
+      "start": 1623852966000,
+      "length": 15,
+      "aggr": null,
+      "scope": "host:tobey-nuc",
+      "pointlist": [],
+      "expression": "system.cpu.idle{tobey-nuc}",
+      "unit": null,
+      "display_name": "system.cpu.idle"
+    }
+  ],
+  "to_date": 1623853038000,
+  "query": "system.cpu.idle{*}by{tobey-nuc}",
+  "message": "",
+  "res_type": "time_series",
+  "from_date": 1623852965000,
+  "group_by": [
+    "tobey-nuc"
+  ]
+}

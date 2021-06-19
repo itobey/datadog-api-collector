@@ -1,0 +1,25 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.6.1
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - maven
+        script: # Modify the commands below to build your repository.
+          - mvn -B install # -B batch mode makes Maven less verbose
+        artifacts:
+          - target/**
+    - step:
+        name: docker build
+        script:
+          - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+          - docker build -t allternative/datadog-api-gatherer .
+          - docker push allternative/datadog-api-gatherer:latest
+
+options:
+  docker: true

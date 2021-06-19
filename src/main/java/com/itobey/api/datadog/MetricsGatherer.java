@@ -46,15 +46,20 @@ public class MetricsGatherer {
 
         MetricsQueryResponse responseQueryCPU = datadogAdapter.queryMetrics(
                 SYSTEM_CPU_IDLE_BY_HOST, unix_time_from, unix_time_to);
-        double cpuNuc = MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.NUC);
-        double cpuItobey = MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.ITOBEY);
-        double cpuOdroid = MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.ODROID);
+        int cpuNuc = (int) (MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.NUC));
+        int cpuItobey = (int) (MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.ITOBEY));
+        int cpuOdroid = (int) (MAX_CPU - metricCalculator.calculateAverage(responseQueryCPU, Hostname.ODROID));
 
         MetricsQueryResponse responseQueryRAM = datadogAdapter.queryMetrics(
                 SYSTEM_MEM_USABLE_BY_HOST, unix_time_from, unix_time_to);
-        double ramNuc = (1 - (calcByteToMb(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC)) / MAX_RAM_NUC_MB)) * 100;
-        double ramItobey = (1 - (calcByteToMb(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ITOBEY)) / MAX_RAM_ITOBEY_MB)) * 100;
-        double ramOdroid = (1 - (calcByteToMb(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ODROID)) / MAX_RAM_ODROID_MB)) * 100;
+
+//        int mb = calcByteToMb(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC));
+//        int asd = mb / MAX_RAM_NUC_MB;
+//        int ramNuc = (1 - (asd) / MAX_RAM_NUC_MB) * 100;
+
+        int ramNuc = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC), MAX_RAM_NUC_MB);
+        int ramItobey = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ITOBEY), MAX_RAM_ITOBEY_MB);
+        int ramOdroid = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ODROID), MAX_RAM_ODROID_MB);
 
         MetricsQueryResponse responseQueryUptime = datadogAdapter.queryMetrics(
                 SYSTEM_UPTIME_BY_HOST, unix_time_from, unix_time_to);
@@ -69,6 +74,12 @@ public class MetricsGatherer {
         return List.of(metricsNUC, metricsItobey, metricsOdroid);
     }
 
+    private int calculateRamUsage(double ramFreeInBytes, int maxRam) {
+        double ramFreeInMb = calcByteToMb(ramFreeInBytes);
+        double v = 100 - (ramFreeInMb / maxRam * 100);
+        return (int) v;
+    }
+
     /**
      * Format Bytes to Megabytes.
      *
@@ -76,7 +87,7 @@ public class MetricsGatherer {
      * @return the value in MB
      */
     private double calcByteToMb(double usage) {
-        return (long) usage / 1024 / 1024;
+        return (usage / 1024 / 1024);
     }
 
 

@@ -19,17 +19,17 @@ public class MetricCalculator {
         long amountOfDataPoints = metricsQueryResponse.getSeries().stream()
                 .filter(x -> x.getScope().equals("host:" + hostname.label)).findFirst().get().getPointlist().stream().count();
 
-        return sumOfDatapoints / amountOfDataPoints;
+        return (sumOfDatapoints / amountOfDataPoints);
     }
 
-    public double retrieveLast(MetricsQueryResponse metricsQueryResponse, Hostname hostname) {
+    public int retrieveLast(MetricsQueryResponse metricsQueryResponse, Hostname hostname) {
         Optional<Double> lastElement = metricsQueryResponse.getSeries().stream()
                 .filter(x -> x.getScope().equals("host:" + hostname.label)).findFirst().get().getPointlist()
                 // get the second array entry
                 .stream().map((x -> x.get(1)))
                 .reduce((first, second) -> second);
 
-        return lastElement.get().doubleValue();
+        return (int) lastElement.get().doubleValue();
     }
 
 }

@@ -65,6 +65,7 @@ public class MetricsGatherer {
         Metrics metricsNUC = Metrics.builder().hostname(Hostname.NUC).cpuUsedPercentage(cpuNuc).ramUsedPercentage(ramNuc).uptimeInSeconds(uptimeNuc).build();
         Metrics metricsItobey = Metrics.builder().hostname(Hostname.ITOBEY).cpuUsedPercentage(cpuItobey).ramUsedPercentage(ramItobey).uptimeInSeconds(uptimeItobey).build();
         Metrics metricsOdroid = Metrics.builder().hostname(Hostname.ODROID).cpuUsedPercentage(cpuOdroid).ramUsedPercentage(ramOdroid).uptimeInSeconds(uptimeOdroid).build();
+
         return List.of(metricsNUC, metricsItobey, metricsOdroid);
     }
 

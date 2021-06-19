@@ -53,19 +53,15 @@ public class MetricsGatherer {
         MetricsQueryResponse responseQueryRAM = datadogAdapter.queryMetrics(
                 SYSTEM_MEM_USABLE_BY_HOST, unix_time_from, unix_time_to);
 
-//        int mb = calcByteToMb(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC));
-//        int asd = mb / MAX_RAM_NUC_MB;
-//        int ramNuc = (1 - (asd) / MAX_RAM_NUC_MB) * 100;
-
         int ramNuc = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.NUC), MAX_RAM_NUC_MB);
         int ramItobey = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ITOBEY), MAX_RAM_ITOBEY_MB);
         int ramOdroid = calculateRamUsage(metricCalculator.calculateAverage(responseQueryRAM, Hostname.ODROID), MAX_RAM_ODROID_MB);
 
         MetricsQueryResponse responseQueryUptime = datadogAdapter.queryMetrics(
                 SYSTEM_UPTIME_BY_HOST, unix_time_from, unix_time_to);
-        long uptimeNuc = (long) metricCalculator.retrieveLast(responseQueryUptime, Hostname.NUC);
-        long uptimeItobey = (long) metricCalculator.retrieveLast(responseQueryUptime, Hostname.ITOBEY);
-        long uptimeOdroid = (long) metricCalculator.retrieveLast(responseQueryUptime, Hostname.ODROID);
+        double uptimeNuc = calculateSecondsToDays(metricCalculator.retrieveLast(responseQueryUptime, Hostname.NUC));
+        double uptimeItobey = calculateSecondsToDays(metricCalculator.retrieveLast(responseQueryUptime, Hostname.ITOBEY));
+        double uptimeOdroid = calculateSecondsToDays(metricCalculator.retrieveLast(responseQueryUptime, Hostname.ODROID));
 
         Metrics metricsNUC = Metrics.builder().hostname(Hostname.NUC).cpuUsedPercentage(cpuNuc).ramUsedPercentage(ramNuc).uptimeInSeconds(uptimeNuc).build();
         Metrics metricsItobey = Metrics.builder().hostname(Hostname.ITOBEY).cpuUsedPercentage(cpuItobey).ramUsedPercentage(ramItobey).uptimeInSeconds(uptimeItobey).build();
@@ -76,8 +72,12 @@ public class MetricsGatherer {
 
     private int calculateRamUsage(double ramFreeInBytes, int maxRam) {
         double ramFreeInMb = calcByteToMb(ramFreeInBytes);
-        double v = 100 - (ramFreeInMb / maxRam * 100);
-        return (int) v;
+        return (int) (100 - (ramFreeInMb / maxRam * 100));
+    }
+
+    private double calculateSecondsToDays(double seconds) {
+        double days = seconds / 3600 / 24;
+        return Math.pow(days, 1);
     }
 
     /**

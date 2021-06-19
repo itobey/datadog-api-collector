@@ -14,6 +14,6 @@ public class Metrics {
     private Hostname hostname;
     private int cpuUsedPercentage;
     private int ramUsedPercentage;
-    private long uptimeInSeconds;
+    private double uptimeInSeconds;
 
 }

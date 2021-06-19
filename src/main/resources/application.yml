@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: datadogApi
+
+logging:
+  level:
+    root: DEBUG

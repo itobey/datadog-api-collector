@@ -12,7 +12,7 @@ datadog-api-gatherer:
   odroid-max-ram: 3712
   search-window: 10
   influxdb:
-    server: http://192.168.0.34:8086
+    server: http://influxdb.influxdb:8086
     user: root
     password: root
     database: datadog_metrics

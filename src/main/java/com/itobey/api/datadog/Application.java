@@ -1,10 +1,10 @@
 package com.itobey.api.datadog;
 
 import com.itobey.api.datadog.adapter.DatadogAdapter;
-import com.itobey.api.datadog.adapter.MqttAdapter;
+import com.itobey.api.datadog.adapter.InfluxDbAdapter;
+import com.itobey.api.datadog.config.InfluxDbConfig;
 import com.itobey.api.datadog.domain.Metrics;
 import io.micronaut.runtime.Micronaut;
-import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
 
@@ -25,13 +25,9 @@ public class Application {
         List<Metrics> metrics = metricsGatherer.gatherMetrics();
         System.out.println(metrics);
 
-        MqttAdapter mqttAdapter = new MqttAdapter();
-        try {
-            mqttAdapter.sendMessage(metrics.get(0));
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+        InfluxDbAdapter influxDbAdapter = new InfluxDbAdapter(new InfluxDbConfig().createInfluxDb());
 
+        metrics.stream().forEach(influxDbAdapter::addToInfluxDb);
     }
 
 

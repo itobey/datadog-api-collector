@@ -20,6 +20,7 @@
         <micronaut.version>2.5.6</micronaut.version>
         <exec.mainClass>com.itobey.api.datadog.Application</exec.mainClass>
         <micronaut.runtime>netty</micronaut.runtime>
+        <influxdbClient.version>2.21</influxdbClient.version>
     </properties>
 
     <repositories>
@@ -38,9 +39,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.paho</groupId>
-            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.0.2</version>
+            <groupId>org.influxdb</groupId>
+            <artifactId>influxdb-java</artifactId>
+            <version>${influxdbClient.version}</version>
         </dependency>
 
         <dependency>

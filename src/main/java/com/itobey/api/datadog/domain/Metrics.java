@@ -12,8 +12,8 @@ import lombok.ToString;
 public class Metrics {
 
     private Hostname hostname;
-    private Double cpu;
-    private int ram;
-    private int uptime;
+    private Double cpuUsedPercentage;
+    private Double ramUsedPercentage;
+    private long uptimeInSeconds;
 
 }

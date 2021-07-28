@@ -24,7 +24,7 @@ public class DatadogAdapter {
      * @param to    unix epoch to
      * @return the query response
      */
-    public MetricsQueryResponse queryMetrics(String query, long from, long to) {
+    public MetricsQueryResponse queryMetrics(String query, long from, long to) throws ApiException {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         MetricsApi apiInstance = new MetricsApi(defaultClient);
@@ -33,12 +33,11 @@ public class DatadogAdapter {
             log.debug(result.toString());
             return result;
         } catch (ApiException e) {
-            System.err.println("Exception when calling MetricsApi#queryMetrics");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
+            log.error("Exception when calling MetricsApi#queryMetrics");
+            log.error("Status code: " + e.getCode());
+            log.error("Reason: " + e.getResponseBody());
+            log.error("Response headers: " + e.getResponseHeaders());
+            throw e;
         }
-        return null;
     }
 }

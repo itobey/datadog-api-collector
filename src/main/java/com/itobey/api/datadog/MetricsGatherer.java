@@ -1,5 +1,6 @@
 package com.itobey.api.datadog;
 
+import com.datadog.api.v1.client.ApiException;
 import com.datadog.api.v1.client.model.MetricsQueryResponse;
 import com.itobey.api.datadog.adapter.DatadogAdapter;
 import com.itobey.api.datadog.domain.Hostname;
@@ -38,7 +39,7 @@ public class MetricsGatherer {
      *
      * @return a list of the metrics sorted by hosts
      */
-    public List<Metrics> gatherMetrics() {
+    public List<Metrics> gatherMetrics() throws ApiException {
 
         long unix_time_from = LocalTime.now().minusMinutes(props.getSearchWindow()).toEpochSecond(LocalDate.now(), ZoneOffset.ofHours(2));
         long unix_time_to = LocalTime.now().toEpochSecond(LocalDate.now(), ZoneOffset.ofHours(2));

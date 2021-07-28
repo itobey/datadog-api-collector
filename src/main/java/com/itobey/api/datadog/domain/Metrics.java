@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The domain object for metrics gathered by the Datadog API to be written to InfluxDB.
+ */
 @Setter
 @Getter
 @Builder

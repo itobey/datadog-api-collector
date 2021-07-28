@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * properties for configuration
+ */
 @ConfigurationProperties("datadog-api-gatherer")
 @Getter
 @Setter
@@ -19,6 +22,9 @@ public class ConfigProperties {
     private long searchWindow;
     private Influxdb influxdb;
 
+    /**
+     * InfluxDB properties
+     */
     @Getter
     @Setter
     @ConfigurationProperties("influxdb")

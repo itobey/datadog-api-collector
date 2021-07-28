@@ -1,4 +1,4 @@
-package com.itobey.api.datadog.adapter;
+package com.itobey.adapter.api.datadog.adapter;
 
 import com.datadog.api.v1.client.ApiClient;
 import com.datadog.api.v1.client.ApiException;

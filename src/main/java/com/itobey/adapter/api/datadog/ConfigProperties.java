@@ -1,4 +1,4 @@
-package com.itobey.api.datadog;
+package com.itobey.adapter.api.datadog;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import lombok.AllArgsConstructor;

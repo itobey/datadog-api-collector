@@ -1,8 +1,8 @@
-package com.itobey.api.datadog;
+package com.itobey.adapter.api.datadog;
 
 import com.datadog.api.v1.client.ApiException;
-import com.itobey.api.datadog.adapter.InfluxDbAdapter;
-import com.itobey.api.datadog.domain.Metrics;
+import com.itobey.adapter.api.datadog.adapter.InfluxDbAdapter;
+import com.itobey.adapter.api.datadog.domain.Metrics;
 import io.micronaut.scheduling.annotation.Scheduled;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,7 @@
-package com.itobey.api.datadog.config;
+package com.itobey.adapter.api.datadog.config;
 
-import com.itobey.api.datadog.ConfigProperties;
+import com.itobey.adapter.api.datadog.ConfigProperties;
+import com.itobey.adapter.api.datadog.adapter.InfluxDbAdapter;
 import io.micronaut.context.annotation.Bean;
 import lombok.RequiredArgsConstructor;
 import org.influxdb.BatchOptions;
@@ -25,7 +26,7 @@ public class InfluxDbConfig {
     private final ConfigProperties props;
 
     /**
-     * Creates the bean for InfluxDB to be used by the @{@link com.itobey.api.datadog.adapter.InfluxDbAdapter}
+     * Creates the bean for InfluxDB to be used by the @{@link InfluxDbAdapter}
      *
      * @return the InfluxDB bean
      */

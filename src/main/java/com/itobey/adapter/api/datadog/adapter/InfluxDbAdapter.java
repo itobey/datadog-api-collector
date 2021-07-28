@@ -1,6 +1,6 @@
-package com.itobey.api.datadog.adapter;
+package com.itobey.adapter.api.datadog.adapter;
 
-import com.itobey.api.datadog.domain.Metrics;
+import com.itobey.adapter.api.datadog.domain.Metrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.influxdb.InfluxDB;

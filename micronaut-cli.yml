@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: com.itobey.api.datadog
+defaultPackage: com.itobey.adapter.api.datadog
 testFramework: junit
 sourceLanguage: java
 buildTool: maven

@@ -1,4 +1,4 @@
-package com.itobey.api.datadog;
+package com.itobey.adapter.api.datadog;
 
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;

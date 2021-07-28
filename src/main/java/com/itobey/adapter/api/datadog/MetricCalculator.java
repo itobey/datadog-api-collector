@@ -1,7 +1,7 @@
-package com.itobey.api.datadog;
+package com.itobey.adapter.api.datadog;
 
 import com.datadog.api.v1.client.model.MetricsQueryResponse;
-import com.itobey.api.datadog.domain.Hostname;
+import com.itobey.adapter.api.datadog.domain.Hostname;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

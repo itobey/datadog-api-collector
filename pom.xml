@@ -17,7 +17,7 @@
         <packaging>jar</packaging>
         <jdk.version>11</jdk.version>
         <release.version>11</release.version>
-        <micronaut.version>2.5.6</micronaut.version>
+        <micronaut.version>2.5.11</micronaut.version>
         <exec.mainClass>com.itobey.adapter.api.datadog.Application</exec.mainClass>
         <micronaut.runtime>netty</micronaut.runtime>
         <influxdbClient.version>2.21</influxdbClient.version>

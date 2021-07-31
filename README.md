@@ -1,5 +1,7 @@
 # Datadog Api Collector
 
+More information on this tool can be found in my [blog post](https://it-obey.com/index.php/datadog-as-an-intermediary-for-gathering-metrics/).
+
 # About
 
 The Datadog agent reports your systems metrics to Datadog and the official API permits retrieval of point-data which is

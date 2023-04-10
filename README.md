@@ -1,6 +1,6 @@
 # Datadog Api Collector
 
-More information on this tool can be found in my [blog post](https://it-obey.com/index.php/datadog-as-an-intermediary-for-gathering-metrics/).
+More information on this tool can be found in my [blog post](https://itobey.dev/datadog-as-an-intermediary-for-gathering-metrics/).
 
 # About
 

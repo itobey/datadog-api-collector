@@ -1,10 +1,9 @@
-package com.itobey.adapter.api.datadog.adapter;
+package dev.itobey.adapter.api.datadog.collector.adapter;
 
-import com.datadog.api.v1.client.ApiClient;
-import com.datadog.api.v1.client.ApiException;
-import com.datadog.api.v1.client.Configuration;
-import com.datadog.api.v1.client.api.MetricsApi;
-import com.datadog.api.v1.client.model.MetricsQueryResponse;
+import com.datadog.api.client.ApiClient;
+import com.datadog.api.client.ApiException;
+import com.datadog.api.client.v1.api.MetricsApi;
+import com.datadog.api.client.v1.model.MetricsQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class DatadogAdapter {
      * @return the query response
      */
     public MetricsQueryResponse queryMetrics(String query, long from, long to) throws ApiException {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        ApiClient defaultClient = ApiClient.getDefaultApiClient();
 
         MetricsApi apiInstance = new MetricsApi(defaultClient);
         try {

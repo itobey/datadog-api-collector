@@ -1,4 +1,4 @@
-package com.itobey.adapter.api.datadog.domain;
+package dev.itobey.adapter.api.datadog.collector.domain;
 
 import lombok.Builder;
 import lombok.Getter;

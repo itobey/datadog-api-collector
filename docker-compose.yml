@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:1.8.10
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - C:/Daten/influxdb:/var/lib/influxdb
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=password
+      - INFLUXDB_DB=datadog_metrics
+    networks:
+      - spring_influx_network
+
+  collector:
+    image: datadog-api-collector
+    container_name: datadog-api-collector
+    environment:
+      - DD_SITE=datadoghq.eu
+      - DD_APP_KEY=---
+      - DD_API_KEY=---
+      - collector_influxdb_server=http://influxdb:8086
+    depends_on:
+      - influxdb
+    networks:
+      - spring_influx_network
+
+networks:
+  spring_influx_network:
+    driver: bridge

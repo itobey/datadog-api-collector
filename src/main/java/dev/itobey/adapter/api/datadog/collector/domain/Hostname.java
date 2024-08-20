@@ -1,4 +1,4 @@
-package com.itobey.adapter.api.datadog.domain;
+package dev.itobey.adapter.api.datadog.collector.domain;
 
 /**
  * Contains the hostnames which are available by the Datadog Api.

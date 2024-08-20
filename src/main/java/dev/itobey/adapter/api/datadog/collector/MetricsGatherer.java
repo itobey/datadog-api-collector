@@ -1,16 +1,15 @@
-package com.itobey.adapter.api.datadog;
+package dev.itobey.adapter.api.datadog.collector;
 
-import com.datadog.api.v1.client.ApiException;
-import com.datadog.api.v1.client.model.MetricsQueryResponse;
-import com.itobey.adapter.api.datadog.adapter.DatadogAdapter;
-import com.itobey.adapter.api.datadog.domain.Hostname;
-import com.itobey.adapter.api.datadog.domain.Metrics;
-import exception.DatadogAdapterException;
+import com.datadog.api.client.ApiException;
+import com.datadog.api.client.v1.model.MetricsQueryResponse;
+import dev.itobey.adapter.api.datadog.collector.adapter.DatadogAdapter;
+import dev.itobey.adapter.api.datadog.collector.domain.Hostname;
+import dev.itobey.adapter.api.datadog.collector.domain.Metrics;
+import dev.itobey.adapter.api.datadog.collector.exception.DatadogAdapterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Singleton;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -23,7 +22,6 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Singleton
 public class MetricsGatherer {
 
     private final DatadogAdapter datadogAdapter;

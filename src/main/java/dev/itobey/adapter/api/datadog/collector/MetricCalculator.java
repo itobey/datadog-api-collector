@@ -1,10 +1,10 @@
-package com.itobey.adapter.api.datadog;
+package dev.itobey.adapter.api.datadog.collector;
 
-import com.datadog.api.v1.client.model.MetricsQueryMetadata;
-import com.datadog.api.v1.client.model.MetricsQueryResponse;
-import com.itobey.adapter.api.datadog.domain.Hostname;
-import com.itobey.adapter.api.datadog.domain.Metrics;
-import exception.DatadogAdapterException;
+import com.datadog.api.client.v1.model.MetricsQueryMetadata;
+import com.datadog.api.client.v1.model.MetricsQueryResponse;
+import dev.itobey.adapter.api.datadog.collector.domain.Hostname;
+import dev.itobey.adapter.api.datadog.collector.domain.Metrics;
+import dev.itobey.adapter.api.datadog.collector.exception.DatadogAdapterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

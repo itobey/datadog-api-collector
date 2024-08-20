@@ -1,15 +1,15 @@
-package com.itobey.adapter.api.datadog;
+package dev.itobey.adapter.api.datadog.collector;
 
-import io.micronaut.context.annotation.ConfigurationProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * properties for configuration
  */
-@ConfigurationProperties("datadog-api-gatherer")
+@ConfigurationProperties("collector")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,7 +27,6 @@ public class ConfigProperties {
      */
     @Getter
     @Setter
-    @ConfigurationProperties("influxdb")
     public static class Influxdb {
         private String server;
         private String user;

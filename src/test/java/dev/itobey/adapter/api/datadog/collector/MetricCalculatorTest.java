@@ -1,10 +1,10 @@
-package com.itobey.adapter.api.datadog;
+package dev.itobey.adapter.api.datadog.collector;
 
-import com.datadog.api.v1.client.model.MetricsQueryResponse;
+import com.datadog.api.client.v1.model.MetricsQueryResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itobey.adapter.api.datadog.domain.Hostname;
-import com.itobey.adapter.api.datadog.domain.Metrics;
-import exception.DatadogAdapterException;
+import dev.itobey.adapter.api.datadog.collector.domain.Hostname;
+import dev.itobey.adapter.api.datadog.collector.domain.Metrics;
+import dev.itobey.adapter.api.datadog.collector.exception.DatadogAdapterException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

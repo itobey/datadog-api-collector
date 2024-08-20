@@ -1,13 +1,13 @@
-package com.itobey.adapter.api.datadog.config;
+package dev.itobey.adapter.api.datadog.collector.config;
 
-import com.itobey.adapter.api.datadog.ConfigProperties;
-import com.itobey.adapter.api.datadog.adapter.InfluxDbAdapter;
-import io.micronaut.context.annotation.Bean;
+import dev.itobey.adapter.api.datadog.collector.ConfigProperties;
+import dev.itobey.adapter.api.datadog.collector.adapter.InfluxDbAdapter;
 import lombok.RequiredArgsConstructor;
 import org.influxdb.BatchOptions;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**

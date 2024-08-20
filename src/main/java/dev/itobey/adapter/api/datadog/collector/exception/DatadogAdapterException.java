@@ -1,4 +1,4 @@
-package exception;
+package dev.itobey.adapter.api.datadog.collector.exception;
 
 /**
  * Custom exception that is thrown when something regarding the adapter goes sour.

@@ -1,12 +1,12 @@
-micronaut:
+spring:
   application:
-    name: datadogApiCollector
+    name: collector
 
 logging:
   level:
     root: INFO
 
-datadog-api-gatherer:
+collector:
   nuc-max-ram: 15597
   itobey-max-ram: 7772
   odroid-max-ram: 3712

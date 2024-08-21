@@ -8,7 +8,7 @@ The Datadog agent reports your systems metrics to Datadog and the official API p
 a list of a whole lot of entries for a specific time frame. This is a little tool which allows to retrieve an average of
 some metrics for specific hosts from Datadog. Because this is tightly scoped on my use case, it may not be useful for
 you. However you can always check and modify my code to suit your use case. This little project doubled as a means of
-having a look into [Micronaut](https://micronaut.io/).
+having a look into [Micronaut](https://micronaut.io/) (but has since been migrated to Spring Boot 3).
 
 # How does it work?
 

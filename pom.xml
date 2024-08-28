@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.itobey.adapter.api.datadog</groupId>
     <artifactId>collector</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0-SNAPSHOT</version>
     <name>collector</name>
     <description>Collect metrics data from Datadog</description>
     <properties>

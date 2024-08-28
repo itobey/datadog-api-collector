@@ -13,6 +13,6 @@ collector:
   search-window: 10
   influxdb:
     server: http://influxdb.influxdb:8086
-    user: ---
+    user: root
     password: ---
     database: datadog_metrics

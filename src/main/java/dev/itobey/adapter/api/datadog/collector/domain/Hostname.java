@@ -5,7 +5,7 @@ package dev.itobey.adapter.api.datadog.collector.domain;
  */
 public enum Hostname {
     NUC("tobey-nuc"),
-    ITOBEY("1a7f7b1c90b4"),
+    ITOBEY("datadog-l99nw"),
     ODROID("odroid");
 
     public final String label;

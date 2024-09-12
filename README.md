@@ -2,6 +2,10 @@
 
 More information on this tool can be found in my [blog post](https://itobey.dev/datadog-as-an-intermediary-for-gathering-metrics/).
 
+> [!WARNING]  
+> This tool is not supported to be used and configured by me (yet). It's just a hastily written tool for my own use
+case.
+
 # About
 
 The Datadog agent reports your systems metrics to Datadog and the official API permits retrieval of point-data which is

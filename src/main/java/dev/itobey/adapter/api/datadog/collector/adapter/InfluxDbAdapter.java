@@ -1,13 +1,16 @@
 package dev.itobey.adapter.api.datadog.collector.adapter;
 
+import com.influxdb.client.InfluxDBClient;
+import com.influxdb.client.WriteApi;
+import com.influxdb.client.domain.WritePrecision;
+import com.influxdb.client.write.Point;
 import dev.itobey.adapter.api.datadog.collector.domain.Metrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.influxdb.InfluxDB;
-import org.influxdb.dto.Point;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Instant;
 
 /**
  * Adapter to connect to InfluxDB.
@@ -23,7 +26,13 @@ public class InfluxDbAdapter {
     public static final String UPTIME_IN_DAYS = "uptime_in_days";
     public static final String METRICS = "metrics";
 
-    private final InfluxDB influxDB;
+    private final InfluxDBClient influxDBClient;
+
+    @Value("${collector.influxdb.bucket}")
+    private String bucket;
+
+    @Value("${collector.influxdb.organization}")
+    private String organization;
 
     /**
      * Adds metrics to InfluxDB using the given fields.
@@ -31,15 +40,26 @@ public class InfluxDbAdapter {
      * @param metrics the metrics to add to the database
      */
     public void addToInfluxDb(Metrics metrics) {
-        influxDB.write(Point.measurement(METRICS)
-                .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .tag(HOST, metrics.getHostname().toString())
+        // Create a point for the data
+        Point point = Point
+                .measurement(METRICS)
+                .time(Instant.now(), WritePrecision.NS)
+                .addTag(HOST, metrics.getHostname().toString())
                 .addField(CPU_USED_PERCENTAGE, metrics.getCpuUsedPercentage())
                 .addField(RAM_USED_PERCENTAGE, metrics.getRamUsedPercentage())
-                .addField(UPTIME_IN_DAYS, metrics.getUptimeInDays())
-                .build());
-        log.debug("written to influxdb");
+                .addField(UPTIME_IN_DAYS, metrics.getUptimeInDays());
+
+        try (WriteApi writeApi = influxDBClient.getWriteApi()) {
+            log.info("Writing sensor data: {}", point);
+            writeApi.writePoint(bucket, organization, point);
+        } catch (Exception e) {
+            log.error("Error writing sensor data to InfluxDB", e);
+        }
     }
 
+    // Method to clean up resources when needed
+    public void close() {
+        influxDBClient.close();
+    }
 
 }

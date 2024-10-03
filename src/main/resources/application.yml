@@ -12,7 +12,7 @@ collector:
   odroid-max-ram: 3712
   search-window: 10
   influxdb:
-    server: http://influxdb.influxdb:8086
-    user: root
-    password: ---
-    database: datadog_metrics
+    url: http://influxdb2.influxdb2:8086
+    token: ---
+    organization: primary
+    bucket: datadog_metrics

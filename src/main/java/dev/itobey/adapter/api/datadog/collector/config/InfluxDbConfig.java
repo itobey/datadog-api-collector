@@ -1,52 +1,29 @@
 package dev.itobey.adapter.api.datadog.collector.config;
 
-import dev.itobey.adapter.api.datadog.collector.ConfigProperties;
-import dev.itobey.adapter.api.datadog.collector.adapter.InfluxDbAdapter;
-import lombok.RequiredArgsConstructor;
-import org.influxdb.BatchOptions;
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
-import org.influxdb.dto.Query;
+import com.influxdb.client.InfluxDBClient;
+import com.influxdb.client.InfluxDBClientFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * The configuration class for InfluxDB.
- */
 @Configuration
-@RequiredArgsConstructor
 public class InfluxDbConfig {
 
-    public static final String CREATE_DATABASE = "CREATE DATABASE ";
-    public static final String ONE_DAY_ONLY = "one_day_only";
-    public static final String CREATE_RETENTION_POLICY = "CREATE RETENTION POLICY ";
-    public static final String ON = " ON ";
-    public static final String DURATION_1_D_REPLICATION_1_DEFAULT = " DURATION 1d REPLICATION 1 DEFAULT";
+    @Value("${collector.influxdb.url}")
+    private String influxUrl;
 
-    private final ConfigProperties props;
+    @Value("${collector.influxdb.token}")
+    private String token;
 
-    /**
-     * Creates the bean for InfluxDB to be used by the @{@link InfluxDbAdapter}
-     *
-     * @return the InfluxDB bean
-     */
+    @Value("${collector.influxdb.bucket}")
+    private String bucket;
+
+    @Value("${collector.influxdb.organization}")
+    private String organization;
+
+    // Define a Bean for InfluxDBClient
     @Bean
-    public InfluxDB createInfluxDb() {
-        ConfigProperties.Influxdb influxdbConfig = props.getInfluxdb();
-        final InfluxDB influxDB = InfluxDBFactory.connect(influxdbConfig.getServer(),
-                influxdbConfig.getUser(), influxdbConfig.getPassword());
-
-        String databaseName = props.getInfluxdb().getDatabase();
-        influxDB.query(new Query(CREATE_DATABASE + databaseName));
-        influxDB.setDatabase(databaseName);
-
-        String retentionPolicyName = ONE_DAY_ONLY;
-        influxDB.query(new Query(CREATE_RETENTION_POLICY + retentionPolicyName
-                + ON + databaseName + DURATION_1_D_REPLICATION_1_DEFAULT));
-        influxDB.setRetentionPolicy(retentionPolicyName);
-
-        influxDB.enableBatch(BatchOptions.DEFAULTS);
-
-        return influxDB;
+    public InfluxDBClient influxDBClient() {
+        return InfluxDBClientFactory.create(influxUrl, token.toCharArray(), organization, bucket);
     }
 }
